@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Website • Useful Sites</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="add">
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">Useful Sites</div>
+            <nav class="nav">
+                <a class="nav-link active" href="index.html" aria-current="page"><img class="nav-ico"
+                        src="image-gallery.png" alt="" aria-hidden="true"> <span>Add Website</span></a>
+                <a class="nav-link" href="view.html"><img class="nav-ico" src="panorama.png" alt="" aria-hidden="true">
+                    <span>View Websites</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="glass panel add-panel">
+            <div class="panel-head">
+                <img class="panel-icon" src="image-gallery.png" alt="" aria-hidden="true">
+                <div class="panel-titles">
+                    <h1 class="panel-title">Add Website</h1>
+                    <p class="panel-subtitle">Save links to useful resources you often need at work.</p>
+                </div>
+            </div>
+
+            <form id="addWebsiteForm" class="form two-col" novalidate>
+                <div class="form-row">
+                    <label for="siteName">Website Name <span class="req">*</span></label>
+                    <input type="text" id="siteName" name="siteName" placeholder="e.g., Flaticon" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="siteUrl">Website URL <span class="req">*</span></label>
+                    <input type="url" id="siteUrl" name="siteUrl" placeholder="e.g., https://www.flaticon.com" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="siteMainCategory">Main Category <span class="req">*</span></label>
+                    <div class="with-actions">
+                        <select id="siteMainCategory" required></select>
+                        <button type="button" id="addMainCategoryBtn" class="icon-btn primary with-icon">
+                            <img src="category-page.png" alt="" aria-hidden="true" class="btn-icon">
+                            <span>Add Cat</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="siteSubCategory">Sub-category <span class="req">*</span></label>
+                    <div class="with-actions">
+                        <select id="siteSubCategory" required></select>
+                        <button type="button" id="addSubCategoryBtn" class="icon-btn with-icon">
+                            <img src="diagram.png" alt="" aria-hidden="true" class="btn-icon">
+                            <span>Add Sub</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-row span-2">
+                    <label for="siteDescription">Description</label>
+                    <textarea id="siteDescription" name="siteDescription" rows="4"
+                        placeholder="What makes this site useful?"></textarea>
+                </div>
+
+                <div id="formMessage" class="alert hidden span-2" role="status" aria-live="polite"></div>
+
+                <div class="form-actions span-2">
+                    <button type="submit" class="btn primary" id="saveBtn">Save</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Main Category Modal -->
+    <div id="addMainModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2 class="modal-title">Add Main Category</h2>
+                <button class="icon-btn close" id="addMainCloseBtn" aria-label="Close">✕</button>
+            </div>
+            <form id="addMainForm" class="form" novalidate>
+                <div class="form-row">
+                    <label for="newMainName">Category Name <span class="req">*</span></label>
+                    <input type="text" id="newMainName" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn ghost" id="addMainCancelBtn">Cancel</button>
+                    <button type="submit" class="btn primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sub Category Modal -->
+    <div id="addSubModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2 class="modal-title">Add Sub-Category</h2>
+                <button class="icon-btn close" id="addSubCloseBtn" aria-label="Close">✕</button>
+            </div>
+            <form id="addSubForm" class="form" novalidate>
+                <div class="form-row">
+                    <label for="newSubName">Sub-Category Name <span class="req">*</span></label>
+                    <input type="text" id="newSubName" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn ghost" id="addSubCancelBtn">Cancel</button>
+                    <button type="submit" class="btn primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Info Modal for inline alerts -->
+    <div id="infoModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2 class="modal-title">Notice</h2>
+                <button class="icon-btn close" id="infoCloseBtn" aria-label="Close">✕</button>
+            </div>
+            <div class="modal-body" id="infoModalBody">Select a main category first.</div>
+            <div class="modal-actions">
+                <button type="button" class="btn ghost" id="infoCancelBtn">Close</button>
+                <button type="button" class="btn primary" id="goSelectMainBtn">Select Main</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <p>Works offline using your browser’s localStorage.</p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+    <noscript>This app requires JavaScript.</noscript>
+</body>
+
+</html>

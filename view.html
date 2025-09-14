@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>View Websites • Useful Sites</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="view">
+    <!-- Page-wide moving grid background -->
+    <div id="pageBgGrid" class="bg-grid-page" aria-hidden="true">
+        <div class="bg-glow"></div>
+    </div>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">Useful Sites</div>
+            <nav class="nav">
+                <a class="nav-link" href="index.html"><img class="nav-ico" src="image-gallery.png" alt=""
+                        aria-hidden="true"> <span>Add Website</span></a>
+                <a class="nav-link active" href="view.html" aria-current="page"><img class="nav-ico" src="panorama.png"
+                        alt="" aria-hidden="true"> <span>View Websites</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container layout-two-col">
+        <main>
+            <section class="panel glass with-sidebar">
+                <div class="panel-row">
+                    <h1 class="panel-title">Your Saved Websites</h1>
+                    <div class="filter">
+                        <label class="sr-only" for="categoryFilter">Filter by category</label>
+                        <select id="categoryFilter">
+                            <option value="All" selected>All</option>
+                            <option value="Design">Design</option>
+                            <option value="Development">Development</option>
+                            <option value="Learning">Learning</option>
+                            <option value="Tools">Tools</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="content-area">
+                    <div id="cardsGrid" class="grid"></div>
+                </div>
+            </section>
+        </main>
+        <aside id="filterSidebar" class="sidebar">
+            <h3>Filter</h3>
+            <div class="cat-stats" aria-live="polite">
+                <span class="stat-badge" id="mainCatsCount">0 main</span>
+                <span class="stat-badge" id="subCatsCount">0 sub</span>
+            </div>
+            <ul id="categoryTree" class="tree"></ul>
+        </aside>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Website</h2>
+                <button class="icon-btn close" id="editCloseBtn" aria-label="Close">✕</button>
+            </div>
+            <form id="editForm" class="form" novalidate>
+                <input type="hidden" id="editId">
+                <div class="form-row">
+                    <label for="editName">Website Name <span class="req">*</span></label>
+                    <input type="text" id="editName" required>
+                </div>
+                <div class="form-row">
+                    <label for="editUrl">Website URL <span class="req">*</span></label>
+                    <input type="url" id="editUrl" required>
+                </div>
+                <div class="form-row">
+                    <label for="editMainCategory">Main Category <span class="req">*</span></label>
+                    <select id="editMainCategory" required></select>
+                </div>
+                <div class="form-row">
+                    <label for="editSubCategory">Sub-category <span class="req">*</span></label>
+                    <select id="editSubCategory" required></select>
+                </div>
+                <div class="form-row">
+                    <label for="editCategory">Category <span class="req">*</span></label>
+                    <select id="editCategory" required>
+                        <option value="Design">Design</option>
+                        <option value="Development">Development</option>
+                        <option value="Learning">Learning</option>
+                        <option value="Tools">Tools</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="editDescription">Description</label>
+                    <textarea id="editDescription" rows="4"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn ghost" id="editCancelBtn">Cancel</button>
+                    <button type="submit" class="btn primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div id="deleteModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2 class="modal-title">Delete Website</h2>
+                <button class="icon-btn close" id="deleteCloseBtn" aria-label="Close">✕</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this website?</p>
+                <p id="deleteSiteName" class="muted"></p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn ghost" id="deleteCancelBtn">Cancel</button>
+                <button class="btn danger" id="deleteConfirmBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <p></p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+    <noscript>This app requires JavaScript.</noscript>
+</body>
+
+</html>

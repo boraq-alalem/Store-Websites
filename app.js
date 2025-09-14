@@ -226,9 +226,11 @@ function renderCategoryTree(map) {
     };
     const setActiveText = (text) => {
         clearActive();
+        const target = String(text || "").trim();
         const btns = tree.querySelectorAll('.tree-button');
         for (const b of btns) {
-            if (b.textContent === text) {
+            const label = (b.querySelector('span')?.textContent || b.textContent || "").trim();
+            if (label === target) {
                 b.classList.add('active');
                 break;
             }

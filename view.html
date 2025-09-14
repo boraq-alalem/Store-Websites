@@ -18,12 +18,15 @@
     </div>
     <header class="app-header">
         <div class="header-inner">
-            <div class="brand">Useful Sites</div>
+            <button class="brand button" id="toggleFilterBtn" type="button" aria-controls="filterSidebar"
+                aria-expanded="false">Filter</button>
             <nav class="nav">
                 <a class="nav-link" href="index.html"><img class="nav-ico" src="image-gallery.png" alt=""
-                        aria-hidden="true"> <span>Add Website</span></a>
+                        aria-hidden="true"> <span class="label-mobile">Add</span><span class="label-desktop">Add
+                        Website</span></a>
                 <a class="nav-link active" href="view.html" aria-current="page"><img class="nav-ico" src="panorama.png"
-                        alt="" aria-hidden="true"> <span>View Websites</span></a>
+                        alt="" aria-hidden="true"> <span class="label-mobile">View</span><span
+                        class="label-desktop">View Websites</span></a>
             </nav>
         </div>
     </header>
@@ -49,8 +52,11 @@
                 </div>
             </section>
         </main>
-        <aside id="filterSidebar" class="sidebar">
-            <h3>Filter</h3>
+        <aside id="filterSidebar" class="sidebar" aria-modal="true" role="dialog">
+            <div class="modal-header mobile-only">
+                <h3 class="modal-title">Filter</h3>
+                <button class="icon-btn close" id="filterCloseBtn" aria-label="Close">✕</button>
+            </div>
             <div class="cat-stats" aria-live="polite">
                 <span class="stat-badge" id="mainCatsCount">0 main</span>
                 <span class="stat-badge" id="subCatsCount">0 sub</span>
@@ -58,6 +64,9 @@
             <ul id="categoryTree" class="tree"></ul>
         </aside>
     </div>
+
+    <!-- Offcanvas overlay for mobile -->
+    <div id="offcanvasOverlay" class="offcanvas-overlay hidden" aria-hidden="true"></div>
 
     <!-- Edit Modal -->
     <div id="editModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">

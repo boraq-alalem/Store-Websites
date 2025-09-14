@@ -234,6 +234,20 @@ function renderCategoryTree(map) {
             }
         }
     };
+    // Add "Show All" control at the top
+    const allLi = document.createElement("li");
+    allLi.className = "tree-item";
+    const allBtn = document.createElement("button");
+    allBtn.className = "tree-button";
+    const totalCount = Array.isArray(allSites) ? allSites.length : 0;
+    allBtn.innerHTML = `<span>عرض الكل</span><span class="count-badge">${totalCount}</span>`;
+    allBtn.addEventListener("click", () => {
+        renderSites(window.__ALL_SITES__ || [], "");
+        clearActive();
+        allBtn.classList.add("active");
+    });
+    allLi.appendChild(allBtn);
+    tree.appendChild(allLi);
     const createNode = (main, subs) => {
         const li = document.createElement("li");
         li.className = "tree-item";
@@ -673,6 +687,28 @@ function setupViewPage() {
     document.getElementById("deleteCancelBtn")?.addEventListener("click", closeDelete);
     editModal?.querySelector(".modal-overlay")?.addEventListener("click", closeEdit);
     deleteModal?.querySelector(".modal-overlay")?.addEventListener("click", closeDelete);
+
+    // Mobile offcanvas filter toggle
+    const filterBtn = document.getElementById("toggleFilterBtn");
+    const filterSidebar = document.getElementById("filterSidebar");
+    const offcanvasOverlay = document.getElementById("offcanvasOverlay");
+    const openOffcanvas = () => {
+        document.body.classList.add("offcanvas-open");
+        filterSidebar?.setAttribute("aria-hidden", "false");
+        filterBtn?.setAttribute("aria-expanded", "true");
+        offcanvasOverlay?.classList.remove("hidden");
+    };
+    const closeOffcanvas = () => {
+        document.body.classList.remove("offcanvas-open");
+        filterSidebar?.setAttribute("aria-hidden", "true");
+        filterBtn?.setAttribute("aria-expanded", "false");
+        offcanvasOverlay?.classList.add("hidden");
+    };
+    filterBtn?.addEventListener("click", () => {
+        if (document.body.classList.contains("offcanvas-open")) closeOffcanvas(); else openOffcanvas();
+    });
+    offcanvasOverlay?.addEventListener("click", closeOffcanvas);
+    document.getElementById("filterCloseBtn")?.addEventListener("click", closeOffcanvas);
 
     // Edit form submit
     const editForm = document.getElementById("editForm");

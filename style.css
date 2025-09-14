@@ -79,6 +79,15 @@ body {
     letter-spacing: 0.3px;
 }
 
+.brand.button {
+    background: transparent;
+    border: 1px solid #ffffff22;
+    color: var(--text);
+    border-radius: 10px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
 .nav {
     display: flex;
     gap: 10px;
@@ -109,6 +118,25 @@ body {
     width: 18px;
     height: 18px;
     display: inline-block;
+}
+
+/* Responsive labels for header links */
+.label-mobile {
+    display: none;
+}
+
+.label-desktop {
+    display: inline;
+}
+
+@media (max-width: 640px) {
+    .label-mobile {
+        display: inline;
+    }
+
+    .label-desktop {
+        display: none;
+    }
 }
 
 /* Inactive header buttons: subtle border */
@@ -305,8 +333,78 @@ body {
 
 @media (max-width: 900px) {
     .sidebar {
-        position: relative;
-        top: auto;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 86vw;
+        max-width: 360px;
+        transform: translateX(100%);
+        transition: transform .25s ease;
+        z-index: 60;
+        border-radius: 0;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/* Offcanvas overlay for mobile sidebar */
+.offcanvas-overlay.hidden {
+    display: none;
+}
+
+.offcanvas-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+    z-index: 55;
+}
+
+/* Off-canvas behavior for mobile and medium screens */
+@media (max-width: 1200px) {
+    #filterSidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 86vw;
+        max-width: 380px;
+        transform: translateX(100%) !important;
+        transition: transform .25s ease;
+        z-index: 60;
+        border-radius: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    body.offcanvas-open #filterSidebar {
+        transform: translateX(0) !important;
+    }
+}
+
+/* Centered modal-like aside on mobile */
+@media (max-width: 900px) {
+    #filterSidebar {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        height: 80vh;
+        width: 90vw;
+        max-width: 420px;
+        transform: translate(-50%, -50%) !important;
+        opacity: 0;
+        pointer-events: none;
+        border-radius: var(--radius);
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    body.offcanvas-open #filterSidebar {
+        transform: translate(-50%, -50%) !important;
+        opacity: 1;
+        pointer-events: auto;
     }
 }
 
@@ -434,7 +532,8 @@ textarea {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 320px));
+    justify-content: center;
     gap: 16px;
     margin-top: 16px;
 }
@@ -653,6 +752,11 @@ textarea {
     backdrop-filter: blur(3px);
 }
 
+/* Darker backdrop specifically for Edit modal */
+#editModal .modal-overlay {
+    background: rgba(2, 6, 23, .75);
+}
+
 .modal-content {
     position: relative;
     max-width: 560px;
@@ -758,4 +862,10 @@ textarea {
 #addSubCategoryBtn {
     width: fit-content;
     padding: 10px 20px;
+}
+
+@media (max-width: 900px) {
+    body.offcanvas-open #filterSidebar {
+        transform: translateX(0);
+    }
 }
